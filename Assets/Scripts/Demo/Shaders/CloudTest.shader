@@ -19,7 +19,7 @@
             #pragma vertex vert
             #pragma fragment frag
             #pragma target 4.5
-
+            #include "Packages/UniversalRP/Runtime/Shaders/ShaderLibrary/UnityCG.cginc"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
