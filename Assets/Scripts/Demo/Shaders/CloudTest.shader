@@ -2,15 +2,15 @@
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
-        _Emission ("Emission", Color) = (1,1,1,1)
+        _Color ("Color", Color) = (1, 1, 1, 1)
+        _Emission ("Emission", Color) = (1, 1, 1, 1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
+        _Glossiness ("Smoothness", Range(0, 1)) = 0.5
+        _Metallic ("Metallic", Range(0, 1)) = 0.0
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" "Queue"="Transparent" }
+        Tags { "RenderType" = "Opaque" "Queue" = "Transparent" }
         LOD 200
 
         Pass
@@ -18,40 +18,51 @@
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma target 3.0
+            #pragma target 4.5
 
-            #include "UnityCG.cginc"
-            #include "UnityShaderVariables.cginc"
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
-            sampler2D _MainTex;
+            float4 _Color;
+            float4 _Emission;
+            float _Glossiness;
+            float _Metallic;
+            Texture2D<float4> _MainTex;
+            SamplerState _MainTex_sampler;
 
-            struct Input
+            struct VertexInput
             {
-                float2 uv_MainTex;
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
             };
 
-            half _Glossiness;
-            half _Metallic;
-            fixed4 _Color;
-            fixed4 _Emission;
-
-            void vert(inout appdata_full data)
+            struct VertexOutput
             {
-                float3 worldVert = mul(unity_ObjectToWorld, data.vertex).xyz;
-                //data.vertex.xyz += sin(_Time.x + data.vertex.xyz + worldVert * .1) * .2;
+                float2 uv_MainTex;
+                float4 pos : SV_POSITION;
+            };
+
+            VertexOutput vert(VertexInput v)
+            {
+                VertexOutput o;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.uv_MainTex = v.uv;
+                return o;
             }
 
-            void frag(Input IN, inout SurfaceOutputStandard o)
+            float4 frag(VertexOutput IN [[stage_in]]) : SV_Target
             {
-                // Albedo comes from a texture tinted by color
-                fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-                o.Albedo = c.rgb;
-                // Metallic and smoothness come from slider variables
-                o.Metallic = _Metallic;
-                o.Smoothness = _Glossiness;
-                o.Emission = _Emission.rgb;
-                o.Alpha = c.a;
+                float4 albedo = _MainTex.Sample(_MainTex_sampler, IN.uv_MainTex) * _Color;
+                float4 emission = _Emission.rgb;
+
+                float4 output;
+                output.rgb = albedo.rgb;
+                output.a = albedo.a;
+                output.rgb += emission.rgb;
+
+                return output;
             }
+
             ENDHLSL
         }
     }
