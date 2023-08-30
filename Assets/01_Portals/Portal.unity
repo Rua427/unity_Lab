@@ -585,12 +585,12 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
+  m_VolumeFrameworkUpdateModeOption: 0
   m_RenderPostProcessing: 1
   m_Antialiasing: 1
   m_AntialiasingQuality: 2
@@ -651,7 +651,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.03
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d2a559b53ee56498a63e63fb9e1380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  protals: []
+  portals: []
 --- !u!1 &993361291
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,12 +951,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1748891310 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6149084346084121266, guid: a26f144971282124090deb65effe33f6,
-    type: 3}
-  m_PrefabInstance: {fileID: 870313622062272406}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1902623526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0299520f9fa32f34b970cd09f8472acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graphicObject: {fileID: 1944874712}
+  graphicsObject: {fileID: 1944874712}
   walkSpeed: 4
   runSpeed: 7
   smoothMoveTime: 0.1
@@ -1232,7 +1226,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 6c67f816e7d96464caf45c22bb6830b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1287,11 +1281,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Foreset Portal
       objectReference: {fileID: 0}
-    - target: {fileID: 4086206345210072226, guid: a26f144971282124090deb65effe33f6,
-        type: 3}
-      propertyPath: screen
-      value: 
-      objectReference: {fileID: 1748891310}
     - target: {fileID: 4086206345210072226, guid: a26f144971282124090deb65effe33f6,
         type: 3}
       propertyPath: linkedPortal

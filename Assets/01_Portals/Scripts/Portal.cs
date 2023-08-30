@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class Portal : MonoBehaviour
 {
@@ -32,6 +35,7 @@ public class Portal : MonoBehaviour
         screenMeshFilter = screen.GetComponent<MeshFilter>();
         screen.material.SetInt("displayMask", 1);
     }
+
     void HandleClipping()
     {
         // There are two main graphical issues when slicing travellers
@@ -190,7 +194,7 @@ public class Portal : MonoBehaviour
         }
         ProtectScreenFromClipping(playerCam.transform.position);
     }
-    public void Render()
+    public void Render(ScriptableRenderContext context)
     {
         if (!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam)) { return; }
 
@@ -230,8 +234,7 @@ public class Portal : MonoBehaviour
             portalCam.transform.SetPositionAndRotation(renderPositions[i], renderRotations[i]);
             SetNearClipPlane();
             HandleClipping();
-            portalCam.Render();
-
+            UniversalRenderPipeline.RenderSingleCamera(context, portalCam);
             if (i == startIndex)
             {
                 linkedPortal.screen.material.SetInt("displayMask", 1);
@@ -240,6 +243,7 @@ public class Portal : MonoBehaviour
 
         screen.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
     }
+
 
     void SetNearClipPlane()
     {
@@ -347,7 +351,6 @@ public class Portal : MonoBehaviour
         float halfWidth = halfHeight * playerCam.aspect;
         float dstToNearClipPlaneCorner = new Vector3(halfWidth, halfHeight, playerCam.nearClipPlane).magnitude;
         float screenThickness = dstToNearClipPlaneCorner;
-
         Transform screenT = screen.transform;
         bool camFacingSameDirAsPortal = Vector3.Dot(transform.forward, transform.position - viewPoint) > 0;
         screenT.localScale = new Vector3(screenT.localScale.x, screenT.localScale.y, screenThickness);

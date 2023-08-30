@@ -2,11 +2,11 @@ Shader "Custom/Portal"
 {
     Properties
     {
-        _InactiveColor ("Inactive Color", Color) = (1,1,1,1)
-     }
+        _InactiveColour ("Inactive Colour", Color) = (1, 1, 1, 1)
+    }
 
-     SubShader
-     {
+    SubShader
+    {
         Tags {"RenderType" = "Opaque"}
         LOD 100
         Cull Off
@@ -19,7 +19,6 @@ Shader "Custom/Portal"
             #include "UnityCG.cginc"
             #pragma vertex vert
             #pragma fragment frag
-            #pragma target 3.0
 
             struct appdata
             {
@@ -34,7 +33,7 @@ Shader "Custom/Portal"
             };
 
             sampler2D _MainTex;
-            float4 _InactiveColor;
+            float4 _InactiveColour;
             int displayMask;
 
             v2f vert (appdata v)
@@ -54,9 +53,9 @@ Shader "Custom/Portal"
                 //깊이 값에 비례한 텍스처 좌표를 얻음 // 원근법 적용
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 fixed4 portalCol = tex2D(_MainTex, uv);
-                return portalCol * displayMask + _InactiveColor * (1-displayMask);
+                return portalCol * displayMask + _InactiveColour * (1-displayMask);
             }
-            
+
             ENDCG
         }
     }

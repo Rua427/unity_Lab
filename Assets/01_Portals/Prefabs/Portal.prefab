@@ -34,7 +34,7 @@ Transform:
   - {fileID: 2158837668310422077}
   - {fileID: 6789896787400584090}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4086206345210072226
 MonoBehaviour:
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedPortal: {fileID: 0}
-  screen: {fileID: 3716090639648347378}
+  screen: {fileID: 6149084346084121266}
   recursionLimit: 5
   nearClipOffset: 0.05
   nearClipLimit: 0.2
@@ -350,9 +350,9 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6360558719573625917, guid: f41802e248f2e42178e949a42908c5b4, type: 3}
---- !u!23 &3716090639648347378 stripped
+--- !u!23 &6149084346084121266 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 924633868462780330, guid: 41ca9335f24c58a48afb0e6db56efcb8,
+  m_CorrespondingSourceObject: {fileID: 7643504150237569514, guid: 41ca9335f24c58a48afb0e6db56efcb8,
     type: 3}
   m_PrefabInstance: {fileID: 4559544038430096216}
   m_PrefabAsset: {fileID: 0}
