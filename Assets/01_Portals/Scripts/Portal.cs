@@ -114,8 +114,8 @@ public class Portal : MonoBehaviour
         for (int i = 0; i < trackedTravellers.Count; i++)
         {
             PortalTraveller traveller = trackedTravellers[i];
-            Transform travellerT = traveller.transform;
 
+            Transform travellerT = traveller.graphicsObject.transform;
             // 오브젝트의 반대편 위치
             Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
 
@@ -151,7 +151,7 @@ public class Portal : MonoBehaviour
         if (!trackedTravellers.Contains(traveller))
         {
             traveller.EnterPortalThreshold();
-            traveller.previousOffsetFromPortal = transform.transform.position - transform.position;
+            traveller.previousOffsetFromPortal = traveller.graphicsObject.transform.position - transform.position;
             trackedTravellers.Add(traveller);
         }
     }

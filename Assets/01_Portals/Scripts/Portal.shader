@@ -54,6 +54,7 @@ Shader "Custom/Portal"
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 fixed4 portalCol = tex2D(_MainTex, uv);
                 return portalCol * displayMask + _InactiveColour * (1-displayMask);
+
             }
 
             ENDCG
