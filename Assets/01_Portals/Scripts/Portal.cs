@@ -35,6 +35,10 @@ public class Portal : MonoBehaviour
         screenMeshFilter = screen.GetComponent<MeshFilter>();
         screen.material.SetInt("displayMask", 1);
     }
+    private void LateUpdate()
+    {
+        HandleTraveller();
+    }
 
     void HandleClipping()
     {
@@ -104,33 +108,29 @@ public class Portal : MonoBehaviour
             }
         }
     }
-    private void LateUpdate()
-    {
-        HandleTraveller();
-    }
 
     void HandleTraveller()
     {
         for (int i = 0; i < trackedTravellers.Count; i++)
         {
             PortalTraveller traveller = trackedTravellers[i];
-
             Transform travellerT = traveller.graphicsObject.transform;
             // 오브젝트의 반대편 위치
             Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
 
             Vector3 offsetFromPortal = travellerT.position - transform.position;
 
-
             int portalSide = System.Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
             int portalSideOld = System.Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
-
 
             if (portalSide != portalSideOld)
             {
                 var positionOld = travellerT.position;
                 var rotOld = travellerT.rotation;
-                traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
+
+                Vector3 teleportPos = m.GetColumn(3) - new Vector4(0, traveller.graphicsObject.transform.localPosition.y, 0);
+
+                traveller.Teleport(transform, linkedPortal.transform, teleportPos, m.rotation);
                 traveller.graphicsClone.transform.SetPositionAndRotation(positionOld, rotOld);
 
                 linkedPortal.OnTravellerEnterPortal(traveller);
@@ -310,7 +310,6 @@ public class Portal : MonoBehaviour
         {
             cloneSliceOffsetDst = -screenThickness;
         }
-
 
         // Apply parameters
         for (int i = 0; i < traveller.originalMaterials.Length; i++)
