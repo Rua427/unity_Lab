@@ -39,9 +39,9 @@ Shader "Custom/Portal"
             v2f vert (appdata v)
             {
                 v2f o;
-
                 // object to clip pos
                 o.vertex = UnityObjectToClipPos(v.vertex);
+                
                 // clip pos to screen pos
                 o.screenPos = ComputeScreenPos(o.vertex);
                 return o;
