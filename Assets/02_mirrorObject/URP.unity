@@ -330,6 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCam: {fileID: 961739752}
   mirrorCam: {fileID: 985127566}
+  screen: {fileID: 520776570}
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +698,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9c33fbd15bac9964cb7683320d503d05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -843,7 +844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &721041513
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -923,7 +924,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721041512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.804, y: -0.026, z: -0.019769758}
+  m_LocalPosition: {x: -0.19, y: -0.026, z: 3.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1080,7 +1081,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5952be468e3934dbb50135d0db72a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mirrors: []
 --- !u!1 &985127562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,7 +1091,6 @@ GameObject:
   m_Component:
   - component: {fileID: 985127563}
   - component: {fileID: 985127566}
-  - component: {fileID: 985127565}
   - component: {fileID: 985127564}
   m_Layer: 0
   m_Name: mirrorCam
@@ -1159,14 +1158,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &985127565
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985127562}
-  m_Enabled: 1
 --- !u!20 &985127566
 Camera:
   m_ObjectHideFlags: 0
@@ -1174,7 +1165,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985127562}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -1390,7 +1381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!135 &1264110337
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1470,7 +1461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264110336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.13}
+  m_LocalPosition: {x: -0.38, y: 0, z: 2.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1527,7 +1518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1679242359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1607,7 +1598,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679242358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.434, y: -0.143, z: 3.07}
+  m_LocalPosition: {x: -1.68, y: -0.143, z: 5.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1661,13 +1652,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35805d504cae594da5f14ed88bbb85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screen: {fileID: 1234972103}
-  point: {fileID: 146040027}
-  forward: {fileID: 1480367763}
-  recursionLimit: 5
-  nearClipOffset: 0.05
-  nearClipLimit: 0.2
-  viewTexture: {fileID: 0}
-  mirrorCam: {fileID: 0}
-  playerCam: {fileID: 0}
-  screenMeshFilter: {fileID: 0}

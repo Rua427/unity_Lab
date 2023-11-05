@@ -9,6 +9,7 @@ Shader "Custom/Mirror"
     {
         Tags {"RenderType" = "Opaque"}
         LOD 100
+        Cull Off
 
         Pass
         {
@@ -52,10 +53,8 @@ Shader "Custom/Mirror"
                 // 스크린좌표에서 텍스처 좌표로 변환
                 //깊이 값에 비례한 텍스처 좌표를 얻음 // 원근법 적용
                 float2 uv = i.screenPos.xy / i.screenPos.w;
-                // 좌우 반전
-                uv = float2(1 - uv.x, uv.y);
+                uv.x = 1 - uv.x;
                 fixed4 portalCol = tex2D(_MainTex, uv);
-
 
                 return portalCol * displayMask + _InactiveColour * (1-displayMask);
 

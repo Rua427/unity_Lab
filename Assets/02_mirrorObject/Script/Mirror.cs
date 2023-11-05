@@ -1,25 +1,47 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Mirror : MonoBehaviour
 {
     public Camera playerCam;
     public Camera mirrorCam;
 
-    // public MeshRenderer screen;
+    public MeshRenderer screen;
 
-    // RenderTexture viewTexture;
+    RenderTexture viewTexture;
+    void Awake()
+    {
+        screen.material.SetInt("displayMask", 1);
+        mirrorCam.enabled = false;
+    }
+    void OnEnable()
+    {
+        RenderPipelineManager.beginCameraRendering += Render;
+    }
+    void OnDisable()
+    {
+        RenderPipelineManager.beginCameraRendering -= Render;
+    }
 
-    // void OnEnable()
-    // {
-    //     RenderPipelineManager.beginCameraRendering += Render;
-    // }
-    // void OnDisable()
-    // {
-    //     RenderPipelineManager.beginCameraRendering -= Render;
-    // }
+    void Render(ScriptableRenderContext context, Camera camera)
+    {
+        if (!CameraUtility.VisibleFromCamera(screen, playerCam)) { return; }
 
-    void Update()
+        CreateViewTexture();
+
+        MirrorCamPosCalculation();
+
+        mirrorCam.projectionMatrix = playerCam.projectionMatrix;
+
+        screen.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        screen.material.SetInt("displayMask", 1);
+        UniversalRenderPipeline.RenderSingleCamera(context, mirrorCam);
+
+        screen.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+    }
+
+    void MirrorCamPosCalculation()
     {
         Matrix4x4 mirrorPos = transform.localToWorldMatrix;
         // xy plane
@@ -37,24 +59,17 @@ public class Mirror : MonoBehaviour
         mirrorCam.transform.SetPositionAndRotation(reflectTransform.GetColumn(3), reflectTransform.rotation);
     }
 
-    // void Render(ScriptableRenderContext context, Camera camera)
-    // {
-    //     if (!CameraUtility.VisibleFromCamera(screen, playerCam)) { return; }
-
-    //     CreateViewTexture();
-    // }
-
-    // void CreateViewTexture()
-    // {
-    //     if (viewTexture == null || viewTexture.width != Screen.width || viewTexture.height != Screen.height)
-    //     {
-    //         if (viewTexture != null)
-    //         {
-    //             viewTexture.Release();
-    //         }
-    //         viewTexture = new RenderTexture(Screen.width, Screen.height, 0);
-    //         mirrorCam.targetTexture = viewTexture;
-    //         screen.material.SetTexture("_MainTex", viewTexture);
-    //     }
-    // }
+    void CreateViewTexture()
+    {
+        if (viewTexture == null || viewTexture.width != Screen.width || viewTexture.height != Screen.height)
+        {
+            if (viewTexture != null)
+            {
+                viewTexture.Release();
+            }
+            viewTexture = new RenderTexture(Screen.width, Screen.height, 0);
+            mirrorCam.targetTexture = viewTexture;
+            screen.material.SetTexture("_MainTex", viewTexture);
+        }
+    }
 }
